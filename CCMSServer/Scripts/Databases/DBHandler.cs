@@ -12,7 +12,7 @@ namespace CCMSServer.Scripts.Databases
     internal class DBHandler
     {
         public const string ENCRYPTION_KEY = "개발조아"; // 비밀번호는 DB에 암호화하여 저장합니다. 암호화 및 복호화할 때의 키입니다.
-        private const string LOG_FORMAT = "[DBHandler] {0}";
+        private const string LOG_FORMAT = "[DBHandler] ";
 
         protected static DBHandler _instance;
         public static DBHandler Instance
@@ -22,7 +22,6 @@ namespace CCMSServer.Scripts.Databases
                 if (_instance == null)
                 {
                     _instance = new DBHandler();
-                    _instance.Connect();
                 }
                 return _instance;
             }
@@ -34,6 +33,8 @@ namespace CCMSServer.Scripts.Databases
 
         public virtual void Connect()
         {
+            Program.WriteLine(LOG_FORMAT, "DB Connected!", ConsoleColor.Green);
+
             DatabaseConfig config = ConfigHandler.Instance.GetDatabaseConfig();
             MySqlConnectionStringBuilder stringBuilder = new MySqlConnectionStringBuilder()
             {
@@ -49,7 +50,7 @@ namespace CCMSServer.Scripts.Databases
             }
             catch (Exception e)
             {
-                Console.WriteLine(LOG_FORMAT, e.Message);
+                Program.WriteLine(LOG_FORMAT, e.Message,  ConsoleColor.Green);
             }
         }
 

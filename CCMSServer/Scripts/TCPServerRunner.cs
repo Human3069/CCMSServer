@@ -38,12 +38,12 @@ namespace CCMSServer.Scripts
 
                 if (_useLog == true)
                 {
-                    Console.WriteLine(LOG_FORMAT, "Server started on " + listener.LocalEndpoint + " : " + ((IPEndPoint)listener.LocalEndpoint).Port);
+                    Program.WriteLine(LOG_FORMAT, "Server started on " + listener.LocalEndpoint + " : " + ((IPEndPoint)listener.LocalEndpoint).Port, ConsoleColor.Red);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(LOG_FORMAT, e.Message);
+                Program.WriteLine(LOG_FORMAT, e.Message, ConsoleColor.Red);
             }
         }
 
@@ -62,12 +62,12 @@ namespace CCMSServer.Scripts
             }
             catch (Exception exception)
             {
-                Console.WriteLine(LOG_FORMAT, "Failed to SendMessageAll : " + exception.Message);
+                Program.WriteLine(LOG_FORMAT, "Failed to SendMessageAll : " + exception.Message, ConsoleColor.Red);
             }
 
             if (_useLog == true)
             {
-                Console.WriteLine(LOG_FORMAT, "SendMessage : " + message);
+                Program.WriteLine(LOG_FORMAT, "SendMessage : " + message, ConsoleColor.Red);
             }
         }
 
@@ -93,7 +93,7 @@ namespace CCMSServer.Scripts
 
                     if (_useLog == true)
                     {
-                        Console.WriteLine(LOG_FORMAT, "Client connected : " + client.Client.RemoteEndPoint);
+                        Program.WriteLine(LOG_FORMAT, "Client connected : " + client.Client.RemoteEndPoint, ConsoleColor.Red);
                     }
 
                     Thread clientThread = new Thread(HandleClient);
@@ -101,7 +101,7 @@ namespace CCMSServer.Scripts
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(LOG_FORMAT, e.Message);
+                    Program.WriteLine(LOG_FORMAT, e.Message, ConsoleColor.Red);
                     break;
                 }
             }
@@ -126,7 +126,7 @@ namespace CCMSServer.Scripts
                     string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     if (_useLog == true)
                     {
-                        Console.WriteLine(LOG_FORMAT, "Received message : " + message);
+                        Program.WriteLine(LOG_FORMAT, "Received message : " + message, ConsoleColor.Red);
                     }
 
                     _onReceivedAction.Invoke(client, message);
@@ -134,7 +134,7 @@ namespace CCMSServer.Scripts
             }
             catch (Exception e)
             {
-                Console.WriteLine(LOG_FORMAT, "Exception : " + e.Message);
+                Program.WriteLine(LOG_FORMAT, "Exception : " + e.Message, ConsoleColor.Red);
             }
             finally
             {
@@ -146,7 +146,7 @@ namespace CCMSServer.Scripts
                 client.Close();
                 if (_useLog == true)
                 {
-                    Console.WriteLine(LOG_FORMAT, "Client disconnected : " + client.Client.RemoteEndPoint);
+                    Program.WriteLine(LOG_FORMAT, "Client disconnected : " + client.Client.RemoteEndPoint, ConsoleColor.Red);
                 }
             }
         }

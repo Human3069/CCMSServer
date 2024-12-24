@@ -14,7 +14,7 @@ namespace CCMSServer.Scripts
 {
     internal class TCP_CCMSServer
     {
-        private const string LOG_FORMAT = "[TCP_CCMSServer] {0}";
+        private const string LOG_FORMAT = "[TCP_CCMSServer] ";
 
         private static TCP_CCMSServer _instance;
         public static TCP_CCMSServer Instance
@@ -37,12 +37,12 @@ namespace CCMSServer.Scripts
             NetworkConfig config = ConfigHandler.Instance.GetNetworkConfig();
             serverRunner = new TCPServerRunner(config.ServerPortNumber, OnReceivedFromServer);
 
-            Console.WriteLine(LOG_FORMAT, "Server started on " + config.ServerIPAddress + " : " + config.ServerPortNumber);
+            Program.WriteLine(LOG_FORMAT, "Server started on " + config.ServerIPAddress + " : " + config.ServerPortNumber, ConsoleColor.Red);
         }
 
         private async void OnReceivedFromServer(TcpClient client, string message)
         {
-            Console.WriteLine(LOG_FORMAT, "OnReceivedFromClient(), message : <color=white>" + message + "</color>");
+            Program.WriteLine(LOG_FORMAT, "OnReceivedFromClient(), message : " + message, ConsoleColor.Red);
 
             string pattern = @"_ProtocolType"":\s*(\d+)"; // _ProtocolType":100, _ProtocolType":200, _ProtocolType":201, ...
             Match match = Regex.Match(message, pattern);
@@ -52,7 +52,7 @@ namespace CCMSServer.Scripts
             if (type == ProtocolType.CreateAccount_100)
             {
                 RequestCreateAccount requestedData = JsonConvert.DeserializeObject<RequestCreateAccount>(message);
-                Console.WriteLine(LOG_FORMAT, requestedData.ToString());
+                Program.WriteLine(LOG_FORMAT, requestedData.ToString(), ConsoleColor.Red);
 
                 List<AccountDatabase> accountList = await DBHandler.Instance.GetAccountDataList();
                 List<AccountDatabase> foundAccountList = accountList.FindAll(PredicateFunc);
@@ -91,13 +91,13 @@ namespace CCMSServer.Scripts
             else if (type == ProtocolType.IsCreatableAccount_101)
             {
                 RequestIsCreatableAccount requestedData = JsonConvert.DeserializeObject<RequestIsCreatableAccount>(message);
-                Console.WriteLine(LOG_FORMAT, requestedData.ToString());
+                Program.WriteLine(LOG_FORMAT, requestedData.ToString(), ConsoleColor.Red);
             }
 
             else if (type == ProtocolType.Login_110)
             {
                 RequestLogin requestedData = JsonConvert.DeserializeObject<RequestLogin>(message);
-                Console.WriteLine(LOG_FORMAT, requestedData.ToString());
+                Program.WriteLine(LOG_FORMAT, requestedData.ToString(), ConsoleColor.Red);
 
                 List<AccountDatabase> accountList = await DBHandler.Instance.GetAccountDataList();
                 List<AccountDatabase> foundAccountList = accountList.FindAll(PredicateFunc);
@@ -149,7 +149,7 @@ namespace CCMSServer.Scripts
             else if (type == ProtocolType.Logout_111)
             {
                 RequestLogout requestedData = JsonConvert.DeserializeObject<RequestLogout>(message);
-                Console.WriteLine(LOG_FORMAT, requestedData.ToString());
+                Program.WriteLine(LOG_FORMAT, requestedData.ToString(), ConsoleColor.Red);
 
                 ResponseLogout dataToSend = new ResponseLogout();
                 string json = dataToSend.AsJson();

@@ -7,7 +7,7 @@ namespace CCMSServer.Scripts.Configs
 {
     internal class ConfigReader<T> where T : IConfig<T>
     {
-        private const string LOG_FORMAT = "[ConfigReader] {0}";
+        private const string LOG_FORMAT = "[ConfigReader] ";
 
         private T Result;
         private bool isRead = false;
@@ -25,10 +25,11 @@ namespace CCMSServer.Scripts.Configs
 #if DEBUG
                 appDirectory = appDirectory.Replace("bin\\Debug\\", "Configurations\\" + configName);
 #else
-            appDirectory = appDirectory.Replace("bin\\Release\\", "Configurations\\" + configName);
+                appDirectory = appDirectory.Replace("bin\\Release\\", "Configurations\\" + configName);
 #endif
 
-                Console.WriteLine(LOG_FORMAT, "read [" + typeof(T).Name + "] from : " + appDirectory);
+                Program.WriteLine(LOG_FORMAT, "read [" + typeof(T).Name + "] from : " + appDirectory, ConsoleColor.Yellow);
+
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
                 StreamReader streamReader = new StreamReader(appDirectory);
 

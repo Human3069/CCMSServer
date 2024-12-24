@@ -47,7 +47,7 @@ namespace CCMSServer.Scripts
 
         public override string ToString()
         {
-            return "[ UserName : " + UserName + " / UserID : " + UserID + " / Password : " + Password.ToEncryptAES(DBHandler.ENCRYPTION_KEY) + " / CreateDateTime : " + CreateDateTime + " / _ProtocolType : <color=yellow>" + _ProtocolType + "</color> ]";
+            return "[ UserName : " + UserName + " / UserID : " + UserID + " / Password : " + Password.ToEncryptAES(DBHandler.ENCRYPTION_KEY) + " / CreateDateTime : " + CreateDateTime + " / _ProtocolType : " + _ProtocolType + " ]";
         }
     }
 
@@ -66,7 +66,7 @@ namespace CCMSServer.Scripts
 
         public override string ToString()
         {
-            return "[ UserID : " + UserID + " / Password : " + Password + " / _ProtocolType : <color=yellow>" + _ProtocolType + "</color> ]";
+            return "[ UserID : " + UserID + " / Password : " + Password + " / _ProtocolType : " + _ProtocolType + " ]";
         }
     }
 
@@ -85,7 +85,7 @@ namespace CCMSServer.Scripts
 
         public override string ToString()
         {
-            return "[ UserID : " + UserID + " / Password : " + Password.ToEncryptAES(DBHandler.ENCRYPTION_KEY) + " / _ProtocolType : <color=yellow>" + _ProtocolType + "</color> ]";
+            return "[ UserID : " + UserID + " / Password : " + Password.ToEncryptAES(DBHandler.ENCRYPTION_KEY) + " / _ProtocolType : " + _ProtocolType + " ]";
         }
     }
 
@@ -104,7 +104,7 @@ namespace CCMSServer.Scripts
 
         public override string ToString()
         {
-            return "[ UserID : " + UserID + " / _ProtocolType : <color=yellow>" + _ProtocolType + "</color> ]";
+            return "[ UserID : " + UserID + " / _ProtocolType : " + _ProtocolType + " ]";
         }
     }
 
